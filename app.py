@@ -29,3 +29,15 @@ def welcome():
 
 @app.route("/api/v1.0/precipitation")
 def precipitation():
+ #Session
+ session = Session(engine)
+
+
+"""Return a list of all Precipitation Data"""
+ #Query
+results = session.query(Measurement.date, Measurement.prcp).\
+        filter(Measurement.date >= "2016-08-24").\
+        all()
+
+session.close()
+
