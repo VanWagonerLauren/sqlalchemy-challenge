@@ -51,6 +51,34 @@ session.close()
         all_prcp.append(prcp_dict)
 
     return jsonify(all_prcp)
-    
+@app.route("/api/v1.0/stations")
+def stations():
+
+#Create Session py
+ session = Session(engine)
+ """Return a list of all Stations"""
+ #Query Stations
+ results = session.query(Station.station).\
+                 order_by(Station.station).all()
+
+    session.close()
+ 
+ all_stations = list(np.ravel(results))
+
+    return jsonify(all_stations)
+
+@app.route("/api/v1.0/tobs")
+def tobs():
+    session = Session(engine)
+
+"""Return a list of all TOBs"""    
+results = session.query(Measurement.date,  Measurement.tobs,Measurement.prcp).\
+                filter(Measurement.date >= '2016-08-23').\
+                filter(Measurement.station=='USC00519281').\
+                order_by(Measurement.date).all()
+
+    session.close()
+
+
 
 
