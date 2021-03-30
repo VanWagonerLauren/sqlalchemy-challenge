@@ -41,3 +41,16 @@ results = session.query(Measurement.date, Measurement.prcp).\
 
 session.close()
 
+#Dictionary
+  all_prcp = []
+    for date,prcp  in results:
+        prcp_dict = {}
+        prcp_dict["date"] = date
+        prcp_dict["prcp"] = prcp
+               
+        all_prcp.append(prcp_dict)
+
+    return jsonify(all_prcp)
+    
+
+
